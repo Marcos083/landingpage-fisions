@@ -41,24 +41,19 @@
 
   /* ---------- UTIL ---------- */
   .eyebrow{
-    font-size:12px;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:var(--baltic);
-    font-weight:600;
     display:inline-flex;
     align-items:center;
-    gap:12px;
-  }
-  .eyebrow::before{
-    content:'';
-    width:32px;height:1px;background:var(--mocha);
+    padding:12px 24px;
+    border-radius:24px;
+    background:linear-gradient(0deg,rgba(255,255,255,1),rgba(253,251,250,1));
+    border:1px solid rgba(140,100,90,.18);
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:rgba(140,100,90,1);
+    font-weight:600;
   }
   .eyebrow.center{justify-content:center}
-  .eyebrow.center::after{
-    content:'';
-    width:32px;height:1px;background:var(--mocha);
-  }
   h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--baltic);line-height:1.1;letter-spacing:-.015em}
   h1{font-size:clamp(42px,5vw,68px)}
   h2{font-size:clamp(32px,3.8vw,50px)}
@@ -125,7 +120,7 @@
     min-height:100vh;
     padding:120px 0 130px;
     overflow:hidden;
-    background-image:url('midia/Hero-section.webp');
+    background-image:url('midia/Hero - Fisions (1).webp');
     background-size:cover;
     background-position:center right;
     background-repeat:no-repeat;
@@ -145,11 +140,7 @@
     align-items:center;
     margin-bottom:60px;
   }
-  .hero .eyebrow{
-    margin-bottom:32px;
-    color:var(--baltic);
-  }
-  .hero .eyebrow::before{background:var(--mocha)}
+  .hero .eyebrow{margin-bottom:32px}
   .hero h1{
     margin-bottom:28px;
     color:var(--baltic);
@@ -555,8 +546,7 @@
     margin:0 auto 30px;
     opacity:.5;
   }
-  .alem .eyebrow{color:var(--cream);margin-bottom:28px;display:inline-flex}
-  .alem .eyebrow::before{background:var(--cream);opacity:.5}
+  .alem .eyebrow{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:var(--cream);margin-bottom:28px}
   .alem h2{color:var(--cream);margin-bottom:30px}
   .alem p{
     color:var(--cream);

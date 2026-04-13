@@ -8,7 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 <style>
+  /* Phosphor base sizing */
+  .ph,.ph-bold,.ph-fill,.ph-light{vertical-align:middle;line-height:1}
   :root{
     --cream:#f2efe2;
     --cream-2:#ece7d6;
@@ -69,7 +72,7 @@
     background:var(--baltic);
     color:var(--cream);
     border:none;
-    border-radius:2px;
+    border-radius:32px;
     font-family:'Open Sans',sans-serif;
     font-size:12px;
     font-weight:600;
@@ -200,28 +203,43 @@
     padding:24px 0;
     border-top:1px solid rgba(140,100,90,.12);
     border-bottom:1px solid rgba(140,100,90,.12);
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .tags-bar-track{
+    display:inline-flex;
+    align-items:center;
+    gap:0;
+    animation:marquee 28s linear infinite;
+  }
+  @keyframes marquee{
+    0%{transform:translateX(0)}
+    100%{transform:translateX(-50%)}
   }
   .tags-bar ul{
-    display:flex;
-    justify-content:space-between;
+    display:inline-flex;
     align-items:center;
     list-style:none;
-    flex-wrap:wrap;
-    gap:20px;
+    gap:0;
+    margin:0;padding:0;
   }
   .tags-bar li{
-    font-size:12px;
-    letter-spacing:.22em;
+    font-size:16px;
+    letter-spacing:.18em;
     text-transform:uppercase;
     color:var(--baltic);
     font-weight:600;
-    display:flex;align-items:center;gap:28px;
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+    padding:0 40px;
   }
-  .tags-bar li:not(:last-child)::after{
-    content:'';
-    width:1px;height:14px;
-    background:var(--mocha);
-    opacity:.6;
+  .tags-bar li::after{
+    content:'|';
+    margin-left:40px;
+    color:var(--mocha);
+    opacity:.5;
+    font-weight:300;
   }
 
   /* ---------- 05. SINAIS ---------- */
@@ -233,24 +251,23 @@
     align-items:center;
   }
   .mosaic{
-    position:relative;
-    aspect-ratio:1/1.05;
+    display:flex;
+    gap:14px;
+    align-items:stretch;
   }
   .mosaic .card{
-    position:absolute;
-    border-radius:12px;
+    flex:1;
+    max-width:203px;
+    height:630px;
+    border-radius:999px;
     overflow:hidden;
     box-shadow:var(--shadow);
-    background:linear-gradient(135deg,var(--mocha),var(--baltic));
+    background-size:cover;
+    background-position:center;
   }
-  .mosaic .c1{top:0;left:0;width:60%;height:55%;background:linear-gradient(140deg,#d0a890,#8c645a)}
-  .mosaic .c2{top:10%;right:0;width:42%;height:40%;background:linear-gradient(160deg,#b9a791,#6f4e46)}
-  .mosaic .c3{bottom:0;left:15%;width:70%;height:42%;background:linear-gradient(120deg,#e3c7b7,#a57663)}
-  .mosaic .card::after{
-    content:'';
-    position:absolute;inset:0;
-    background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.1),transparent 70%);
-  }
+  .mosaic .c1{background-image:url('midia/sinais-1.webp')}
+  .mosaic .c2{background-image:url('midia/sinais-2.webp')}
+  .mosaic .c3{background-image:url('midia/sinais-3.webp')}
   .sinais h2{margin:22px 0 18px}
   .sinais .subhead{
     font-size:18px;
@@ -316,7 +333,7 @@
     display:flex;align-items:center;justify-content:center;
     margin-bottom:28px;
   }
-  .problem-card .icon svg{width:26px;height:26px;stroke:var(--baltic);stroke-width:1.5;fill:none}
+  .problem-card .icon i{font-size:26px;color:var(--baltic)}
   .problem-card h3{margin-bottom:16px;font-size:26px}
   .problem-card p{font-size:15px;line-height:1.65}
   @media(max-width:900px){
@@ -404,7 +421,9 @@
   .metodologia-img{
     aspect-ratio:3/4;
     border-radius:12px;
-    background:linear-gradient(145deg,#c19d89 0%,#6f4e46 100%);
+    background-image:url('midia/metodologia.webp');
+    background-size:cover;
+    background-position:center;
     box-shadow:var(--shadow);
     border:8px solid var(--cream);
     position:relative;
@@ -495,7 +514,7 @@
     background:var(--blush);
     display:flex;align-items:center;justify-content:center;
   }
-  .beneficios li .check svg{width:16px;height:16px;stroke:var(--baltic);stroke-width:2;fill:none}
+  .beneficios li .check i{font-size:16px;color:var(--baltic)}
   .beneficios-mosaic{
     position:relative;
     aspect-ratio:1/1.1;
@@ -506,9 +525,9 @@
     box-shadow:var(--shadow-sm);
     overflow:hidden;
   }
-  .beneficios-mosaic .bm1{top:0;left:0;width:68%;height:50%;background:linear-gradient(135deg,#d4b3a0,#8c645a)}
-  .beneficios-mosaic .bm2{top:30%;right:0;width:45%;height:38%;background:linear-gradient(145deg,#b9a791,#6f4e46);border:6px solid var(--cream)}
-  .beneficios-mosaic .bm3{bottom:0;left:10%;width:75%;height:40%;background:linear-gradient(160deg,#e3c7b7,#a57663)}
+  .beneficios-mosaic .bm1{top:0;left:0;width:68%;height:50%;background:url('midia/beneficios-1.webp') center/cover}
+  .beneficios-mosaic .bm2{top:30%;right:0;width:45%;height:38%;background:url('midia/beneficios-2.webp') center/cover;border:6px solid var(--cream)}
+  .beneficios-mosaic .bm3{bottom:0;left:10%;width:75%;height:40%;background:url('midia/beneficios-3.webp') center/cover}
   @media(max-width:900px){
     .beneficios .container{grid-template-columns:1fr;gap:60px}
     .beneficios ul{grid-template-columns:1fr}
@@ -602,10 +621,10 @@
     display:flex;gap:16px;align-items:flex-start;
     font-size:14.5px;line-height:1.55;
   }
-  .programa .entregas svg{
+  .programa .entregas i{
     flex-shrink:0;
-    width:22px;height:22px;
-    stroke:var(--baltic);stroke-width:2;fill:none;
+    font-size:22px;
+    color:var(--baltic);
     margin-top:3px;
   }
   .programa-visual{
@@ -805,10 +824,10 @@
     gap:18px;
     align-items:flex-start;
   }
-  .address svg{
+  .address i{
     flex-shrink:0;
-    width:22px;height:22px;
-    stroke:var(--baltic);stroke-width:1.8;fill:none;
+    font-size:22px;
+    color:var(--baltic);
     margin-top:3px;
   }
   .address strong{
@@ -909,10 +928,11 @@
 
   /* ---------- 16. AGENDAR ---------- */
   .agendar{
-    padding:140px 0;
+    padding:160px 0;
     background:linear-gradient(135deg,#a57663 0%,#6f4e46 100%);
     position:relative;
     overflow:hidden;
+    text-align:center;
   }
   .agendar::before{
     content:'';
@@ -924,35 +944,64 @@
   }
   .agendar .container{
     position:relative;z-index:2;
-    display:grid;
-    grid-template-columns:.85fr 1.15fr;
-    gap:80px;
+    display:flex;
+    flex-direction:column;
     align-items:center;
+    gap:0;
   }
-  .agendar-info .brand-logo{margin-bottom:10px}
-  .agendar-info h2{color:var(--cream);margin:40px 0 24px}
-  .agendar-info p{
+  .agendar .brand-logo{margin-bottom:48px}
+  .agendar h2{
     color:var(--cream);
-    opacity:.88;
-    font-size:15.5px;
+    font-size:clamp(36px,4.5vw,58px);
+    max-width:700px;
+    margin-bottom:20px;
+  }
+  .agendar .agendar-sub{
+    color:var(--cream);
+    opacity:.82;
+    font-size:16px;
     line-height:1.7;
-    margin-bottom:40px;
-    max-width:440px;
+    max-width:480px;
+    margin-bottom:52px;
   }
-  .contact-list{list-style:none;display:flex;flex-direction:column;gap:18px;margin-bottom:36px}
+  .agendar .btn{
+    background:var(--cream);
+    color:var(--baltic);
+    font-size:13px;
+    padding:20px 48px;
+    border-radius:32px;
+    font-weight:700;
+    letter-spacing:.12em;
+    transition:all .3s ease;
+  }
+  .agendar .btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.2)}
+  .agendar-divider{
+    width:1px;height:60px;
+    background:rgba(255,255,255,.25);
+    margin:52px auto 0;
+  }
+  .contact-list{
+    list-style:none;
+    display:flex;
+    flex-direction:row;
+    gap:48px;
+    margin-top:40px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
   .contact-list li{
-    display:flex;gap:16px;align-items:center;
+    display:flex;gap:12px;align-items:center;
     color:var(--cream);
-    font-size:14px;
-    opacity:.9;
+    font-size:13px;
+    opacity:.85;
   }
-  .contact-list svg{
-    width:20px;height:20px;
-    stroke:var(--cream);stroke-width:1.5;fill:none;
-    opacity:.8;
+  .contact-list i{
+    font-size:18px;
+    color:var(--cream);
+    opacity:.7;
     flex-shrink:0;
   }
-  .social{display:flex;gap:14px}
+  .social{display:flex;gap:14px;margin-top:36px;justify-content:center}
   .social a{
     width:40px;height:40px;
     border-radius:50%;
@@ -961,79 +1010,119 @@
     transition:all .3s ease;
   }
   .social a:hover{background:var(--cream);border-color:var(--cream)}
-  .social svg{width:16px;height:16px;stroke:var(--cream);stroke-width:1.8;fill:none;transition:stroke .3s ease}
-  .social a:hover svg{stroke:var(--baltic)}
-  .form-card{
-    background:var(--cream);
-    padding:54px 50px;
-    border-radius:8px;
-    box-shadow:0 40px 80px -30px rgba(0,0,0,.4);
-  }
-  .form-card h3{
-    font-size:30px;
-    margin-bottom:8px;
-  }
-  .form-card .form-sub{
-    font-size:13px;
-    color:var(--muted);
-    margin-bottom:34px;
-  }
-  .form-group{margin-bottom:22px}
-  .form-group label{
-    display:block;
-    font-size:11px;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    color:var(--baltic);
-    font-weight:600;
-    margin-bottom:8px;
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea{
-    width:100%;
-    padding:14px 16px;
-    background:var(--cream);
-    border:1px solid var(--mocha);
-    border-radius:3px;
-    font-family:'Open Sans',sans-serif;
-    font-size:14px;
-    color:var(--ink);
-    transition:border-color .3s ease;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus{
-    outline:none;
-    border-color:var(--baltic);
-    background:#fff;
-  }
-  .form-group textarea{resize:vertical;min-height:100px}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .form-card .btn{width:100%;padding:18px;margin-top:8px}
+  .social i{font-size:18px;color:var(--cream);transition:color .3s ease}
+  .social a:hover i{color:var(--baltic)}
   @media(max-width:900px){
-    .agendar .container{grid-template-columns:1fr;gap:60px}
-    .form-grid{grid-template-columns:1fr}
-    .form-card{padding:40px 30px}
-    .agendar{padding:80px 0}
+    .agendar{padding:100px 0}
+    .contact-list{flex-direction:column;align-items:center;gap:24px}
   }
 
   /* ---------- 17. FOOTER ---------- */
-  .footer{
-    background:var(--cream);
-    border-top:1px solid var(--line);
-    padding:48px 0 32px;
-    text-align:center;
+  .footer {
+    background: #F2EFE2;
+    color: #8C645A;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    padding: 48px 0 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
   }
-  .footer .brand-logo{
-    margin:0 auto 18px;
+  .footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
   }
-  .footer p{
-    font-size:12px;
-    color:var(--muted);
-    letter-spacing:.05em;
+  .footer-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
   }
-  .footer strong{color:var(--baltic);font-weight:600}
+  .footer-copyright {
+    color: #8C645A;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .footer-links a {
+    color: #8C645A;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
+  }
+  .footer-links a:hover { opacity: 0.7; }
+  .footer-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(140, 100, 90, 0.18);
+  }
+  .footer-credits-line {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .footer-credits-label {
+    color: #8C645A;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .footer-credits-logo {
+    display: inline-block;
+    width: 122px;
+    height: 39px;
+    transition: opacity 0.25s ease;
+  }
+  .footer-credits-logo:hover { opacity: 0.85; }
+  .footer-credits-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .footer-cnpj {
+    color: #8C645A;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+    max-width: 100%;
+  }
+
+  @media (max-width: 720px) {
+    .footer {
+      padding: 40px 0 24px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+    .footer-top {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+    }
+    .footer-copyright,
+    .footer-links a,
+    .footer-credits-label,
+    .footer-cnpj { font-size: 12px; }
+    .footer-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-credits-line { gap: 16px; }
+    .footer-credits-logo { width: 100px; height: 32px; }
+  }
 </style>
 </head>
 <body>
@@ -1062,8 +1151,16 @@
 
 <!-- ============ 04. TAGS BAR ============ -->
 <div class="tags-bar">
-  <div class="container">
+  <div class="tags-bar-track">
     <ul>
+      <li>Dor crônica</li>
+      <li>Lesões esportivas</li>
+      <li>Pós-cirúrgico</li>
+      <li>Coluna e postura</li>
+      <li>Reabilitação neurológica</li>
+      <li>Performance executiva</li>
+    </ul>
+    <ul aria-hidden="true">
       <li>Dor crônica</li>
       <li>Lesões esportivas</li>
       <li>Pós-cirúrgico</li>
@@ -1108,21 +1205,21 @@
     <div class="grid">
       <div class="problem-card">
         <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-12a8 8 0 0 1 16 0c0 7.5-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg>
+          <i class="ph ph-lightning"></i>
         </div>
         <h3>Dor Crônica e Lesões Persistentes</h3>
         <p>Quando a dor deixa de ser aviso e vira parte do dia. Investigamos padrões musculoesqueléticos, compensações e gatilhos invisíveis para tratar o que a imagem nem sempre mostra.</p>
       </div>
       <div class="problem-card">
         <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <i class="ph ph-first-aid"></i>
         </div>
         <h3>Pós-cirúrgico e Reabilitação Complexa</h3>
         <p>Joelho, coluna, ombro, quadril. Protocolos construídos sob medida, respeitando o tempo biológico de cada tecido e acelerando o retorno funcional com segurança.</p>
       </div>
       <div class="problem-card">
         <div class="icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <i class="ph ph-heartbeat"></i>
         </div>
         <h3>Performance e Prevenção Executiva</h3>
         <p>Para quem treina, viaja, lidera e não pode parar. Um plano que devolve amplitude, força e consciência corporal — antes que a lesão aconteça.</p>
@@ -1204,14 +1301,14 @@
       <span class="eyebrow">Por que tratar na Fisions</span>
       <h2>Benefícios que você sente dentro e fora da clínica</h2>
       <ul>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Redução da dor com causa identificada e tratada.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Retorno à rotina de trabalho sem desconforto acumulado.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Ganho de força, mobilidade e consciência corporal.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Recuperação pós-cirúrgica segura e previsível.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Prevenção de recidivas e lesões futuras.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mais qualidade de sono e disposição no dia a dia.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Performance esportiva sustentável e sem travas.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Autonomia para cuidar do próprio corpo a longo prazo.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Redução da dor com causa identificada e tratada.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Retorno à rotina de trabalho sem desconforto acumulado.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Ganho de força, mobilidade e consciência corporal.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Recuperação pós-cirúrgica segura e previsível.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Prevenção de recidivas e lesões futuras.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Mais qualidade de sono e disposição no dia a dia.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Performance esportiva sustentável e sem travas.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Autonomia para cuidar do próprio corpo a longo prazo.</li>
       </ul>
     </div>
     <div class="beneficios-mosaic">
@@ -1244,10 +1341,10 @@
       <p>Pensado para pacientes que já passaram por outras abordagens e não obtiveram resultado duradouro, o Protocolo Normalização de Sistemas integra avaliação funcional profunda, terapia manual avançada, reeducação de movimento e monitoramento contínuo do caso.</p>
       <p>Não é uma sessão isolada: é um programa clínico estruturado, conduzido com o olhar de quem já tratou mais de 25 anos de pacientes com rotinas como a sua — executivos, empresários, atletas amadores de alto rendimento e líderes que não podem parar.</p>
       <ul class="entregas">
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Avaliação clínica ampliada com mapeamento biomecânico.</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Plano personalizado com metas funcionais claras.</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Acompanhamento entre sessões e reavaliações periódicas.</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Relatório de evolução e estratégia de manutenção.</li>
+        <li><i class="ph ph-check-circle"></i>Avaliação clínica ampliada com mapeamento biomecânico.</li>
+        <li><i class="ph ph-check-circle"></i>Plano personalizado com metas funcionais claras.</li>
+        <li><i class="ph ph-check-circle"></i>Acompanhamento entre sessões e reavaliações periódicas.</li>
+        <li><i class="ph ph-check-circle"></i>Relatório de evolução e estratégia de manutenção.</li>
       </ul>
       <a href="#agendar" class="btn">Falar sobre o protocolo</a>
     </div>
@@ -1271,26 +1368,26 @@
     <div class="team">
       <div class="member">
         <div class="avatar"></div>
-        <h4>Cintia Mendes</h4>
-        <div class="role">CEO · CREFITO 00000</div>
+        <h4>Cíntia Severo</h4>
+        <div class="role">Responsável Técnica</div>
         <div class="spec">Reabilitação ortopédica e pós-cirúrgica</div>
       </div>
       <div class="member">
         <div class="avatar"></div>
-        <h4>Larissa Souza</h4>
-        <div class="role">Fisioterapeuta · CREFITO 00000</div>
+        <h4>Carol Assumpção</h4>
+        <div class="role">Fisioterapeuta</div>
         <div class="spec">Coluna, postura e reeducação funcional</div>
       </div>
       <div class="member">
         <div class="avatar"></div>
-        <h4>Rafael Lima</h4>
-        <div class="role">Fisioterapeuta · CREFITO 00000</div>
+        <h4>Larissa Queiroz</h4>
+        <div class="role">Fisioterapeuta</div>
         <div class="spec">Lesões esportivas e performance</div>
       </div>
       <div class="member">
         <div class="avatar"></div>
-        <h4>Priscila Amorim</h4>
-        <div class="role">Fisioterapeuta · CREFITO 00000</div>
+        <h4>Priscila Farias</h4>
+        <div class="role">Fisioterapeuta</div>
         <div class="spec">Reabilitação neurológica e dor crônica</div>
       </div>
     </div>
@@ -1343,9 +1440,9 @@
       <h2>Um espaço pensado para quem cuida de si com seriedade</h2>
       <p>Ambiente silencioso, equipado e preparado para atendimento individualizado. Cada sala foi desenhada para que você tenha privacidade, foco e o tempo necessário para evoluir no seu tratamento — sem a pressa que virou regra em outros lugares.</p>
       <div class="address">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <i class="ph ph-map-pin"></i>
         <div>
-          <strong>SHLS 716 · Conjunto A · Asa Sul</strong>
+          <strong>SGAS 915, Edifício Advance I, sala 143 – 1ºss</strong>
           <span>Brasília/DF · Segunda a Sexta · 7h às 20h</span>
         </div>
       </div>
@@ -1420,75 +1517,55 @@
 <!-- ============ 16. AGENDAR ============ -->
 <section class="agendar" id="agendar">
   <div class="container">
-    <div class="agendar-info">
-      <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo md light">
-      <h2>Agende a sua avaliação clínica</h2>
-      <p>Cada agenda é limitada para que possamos dedicar o tempo necessário ao seu caso. Preencha o formulário ao lado e nossa equipe retorna no mesmo dia útil com horários disponíveis.</p>
-      <ul class="contact-list">
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          (61) 3000-0000
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          contato@fisionsreabilitacao.com.br
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          SHLS 716 · Asa Sul · Brasília/DF
-        </li>
-      </ul>
-      <div class="social">
-        <a href="https://instagram.com/fisionsreabilitacao" target="_blank" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="#" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="form-card">
-      <h3>Preencha o formulário</h3>
-      <p class="form-sub">Resposta em até 1 dia útil.</p>
-      <form onsubmit="event.preventDefault();alert('Formulário enviado — demo.');">
-        <div class="form-group">
-          <label>Nome completo</label>
-          <input type="text" placeholder="Como devemos te chamar" required>
-        </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>WhatsApp</label>
-            <input type="tel" placeholder="(00) 00000-0000" required>
-          </div>
-          <div class="form-group">
-            <label>E-mail</label>
-            <input type="email" placeholder="seu@email.com" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Qual a sua principal queixa?</label>
-          <textarea placeholder="Conte brevemente o que está sentindo ou qual procedimento realizou" required></textarea>
-        </div>
-        <div class="form-group">
-          <label>Como prefere ser contatado?</label>
-          <select required>
-            <option value="">Selecione uma opção</option>
-            <option>WhatsApp</option>
-            <option>Ligação</option>
-            <option>E-mail</option>
-          </select>
-        </div>
-        <button type="submit" class="btn">Quero agendar minha avaliação</button>
-      </form>
+    <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo md light">
+    <h2>Agende a sua avaliação clínica</h2>
+    <p class="agendar-sub">Cada agenda é limitada para que possamos dedicar o tempo necessário ao seu caso. Nossa equipe retorna no mesmo dia útil.</p>
+    <a href="https://wa.me/5561993999885" target="_blank" class="btn">Agendar avaliação clínica</a>
+    <div class="agendar-divider"></div>
+    <ul class="contact-list">
+      <li>
+        <i class="ph ph-phone"></i>
+        (61) 99399-9885
+      </li>
+      <li>
+        <i class="ph ph-envelope-simple"></i>
+        contato@fisionsreabilitacao.com.br
+      </li>
+      <li>
+        <i class="ph ph-map-pin"></i>
+        SGAS 915, Edifício Advance I, sala 143 – 1ºss
+      </li>
+    </ul>
+    <div class="social">
+      <a href="https://instagram.com/fisionsreabilitacao" target="_blank" aria-label="Instagram">
+        <i class="ph ph-instagram-logo"></i>
+      </a>
+      <a href="#" aria-label="WhatsApp">
+        <i class="ph ph-whatsapp-logo"></i>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ 17. FOOTER ============ -->
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
-    <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo sm">
-    <p>© 2026 <strong>Fisions Reabilitação</strong> · Todos os direitos reservados · CNPJ 00.000.000/0001-00</p>
+    <div class="footer-top">
+      <p class="footer-copyright">&reg;2026 Synapxs — Todos os direitos reservados</p>
+      <nav class="footer-links" aria-label="Links institucionais">
+        <a href="#">Política de privacidade</a>
+        <a href="#">Suporte</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-credits-line">
+        <span class="footer-credits-label">Desenvolvido por</span>
+        <a href="#" class="footer-credits-logo" aria-label="Reproduzindo Talentos" target="_blank" rel="noopener">
+          <img src="midia/Mask group.webp" alt="Reproduzindo Talentos" loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <p class="footer-cnpj">CNPJ n° 47.387.316/0001-41 — CEP: 72426-125</p>
+    </div>
   </div>
 </footer>
 

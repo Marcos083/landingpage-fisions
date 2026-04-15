@@ -12,6 +12,85 @@
 <style>
   /* Phosphor base sizing */
   .ph,.ph-bold,.ph-fill,.ph-light{vertical-align:middle;line-height:1}
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(242,239,226,.92);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s ease;
+  }
+  .navbar.scrolled{box-shadow:0 2px 20px rgba(60,46,40,.1)}
+  .navbar .container{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .navbar .brand-logo{max-height:40px}
+  .nav-links{
+    display:flex;align-items:center;gap:32px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink);font-weight:600;
+    transition:color .3s ease;
+    opacity:.75;
+  }
+  .nav-links a:hover{color:var(--baltic);opacity:1}
+  .nav-links .btn{
+    padding:12px 24px;font-size:11px;
+    opacity:1;
+  }
+  .nav-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    width:32px;height:32px;
+    flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  }
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--baltic);transition:all .3s ease}
+  @media(max-width:900px){
+    .nav-toggle{display:flex}
+    .nav-links{
+      position:fixed;top:72px;left:0;right:0;
+      background:rgba(242,239,226,.98);
+      backdrop-filter:blur(12px);
+      flex-direction:column;gap:0;
+      max-height:0;overflow:hidden;
+      transition:max-height .4s ease;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links.open{max-height:500px}
+    .nav-links li{width:100%;text-align:center}
+    .nav-links a{
+      display:block;padding:18px 32px;
+      border-bottom:1px solid var(--line);
+      font-size:13px;
+    }
+    .nav-links .btn{
+      margin:16px 32px;width:calc(100% - 64px);
+    }
+  }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .whatsapp-float{
+    position:fixed;
+    bottom:28px;right:28px;
+    z-index:99;
+    width:56px;height:56px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 20px rgba(37,211,102,.4);
+    transition:all .3s ease;
+  }
+  .whatsapp-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5)}
+  .whatsapp-float i{font-size:28px;color:#fff}
+  @media(max-width:480px){
+    .whatsapp-float{bottom:20px;right:20px;width:50px;height:50px}
+    .whatsapp-float i{font-size:24px}
+  }
   :root{
     --cream:#f2efe2;
     --cream-2:#ece7d6;
@@ -123,28 +202,28 @@
   /* ---------- HERO (com background image) ---------- */
   .hero{
     position:relative;
-    min-height:100vh;
-    padding:120px 0 130px;
+    height:853px;
+    min-height:auto;
+    padding:160px 0 130px;
     overflow:hidden;
     background-image:url('midia/Hero - Fisions (1).webp');
     background-size:cover;
-    background-position:center right;
+    background-position:center center;
     background-repeat:no-repeat;
     display:flex;
     align-items:center;
   }
+  .hero::before{display:none}
   .hero .container{
     position:relative;
     z-index:2;
     width:100%;
   }
   .hero-content{
-    max-width:640px;
+    max-width:580px;
   }
   .hero-logo{
-    display:flex;
-    align-items:center;
-    margin-bottom:60px;
+    display:none;
   }
   .hero .eyebrow{margin-bottom:32px}
   .hero h1{
@@ -192,13 +271,51 @@
   .hero .btn-link:hover{color:var(--baltic-dark)}
   @media(max-width:900px){
     .hero{
-      min-height:auto;
-      padding:300px 0 90px;
+      height:auto;
+      margin-top:72px;
+      padding:0 0 60px;
       background-image:url('midia/Hero - Mobile.webp');
-      background-position:center;
+      background-position:top center;
+      background-size:100% auto;
+      background-repeat:no-repeat;
     }
+    .hero::before{display:none}
+    .hero-content{padding-top:260px}
     .hero-logo{display:none}
     .hero h1{font-size:42px}
+  }
+
+  /* ---------- HERO SUPPORT POINTS ---------- */
+  .hero-support{
+    padding:48px 0;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-support-intro{
+    text-align:center;
+    font-size:17px;
+    color:var(--muted);
+    font-style:italic;
+    max-width:700px;
+    margin:0 auto 28px;
+    line-height:1.6;
+  }
+  .support-points{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .support-point{
+    display:flex;align-items:center;gap:10px;
+    font-size:14px;font-weight:600;
+    color:var(--baltic);
+    letter-spacing:.02em;
+  }
+  .support-point i{font-size:20px;color:var(--mocha)}
+  @media(max-width:900px){
+    .support-points{gap:20px}
+    .support-point{font-size:13px}
   }
 
   /* ---------- 04. TAGS BAR ---------- */
@@ -302,6 +419,21 @@
     font-weight:700;
     margin-top:2px;
   }
+  .sinais-closing{
+    font-size:15px;
+    color:var(--baltic);
+    font-weight:500;
+    line-height:1.65;
+    margin-bottom:32px;
+    max-width:480px;
+  }
+  .microcopy{
+    display:block;
+    margin-top:14px;
+    font-size:13px;
+    color:var(--muted);
+    font-style:italic;
+  }
   @media(max-width:900px){
     .sinais .container{grid-template-columns:1fr;gap:50px}
     .sinais{padding:80px 0}
@@ -313,7 +445,15 @@
     background:var(--cream-2);
     text-align:center;
   }
-  .problems h2{margin:22px auto 70px;max-width:720px}
+  .problems h2{margin:22px auto 24px;max-width:720px}
+  .problems-intro{
+    font-size:16px;
+    color:var(--muted);
+    max-width:680px;
+    margin:0 auto 60px;
+    line-height:1.7;
+    font-style:italic;
+  }
   .problems .grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -366,7 +506,8 @@
   }
   .sobre .eyebrow{margin-bottom:24px}
   .sobre .brand-logo{margin:8px 0 30px}
-  .sobre h2{margin-bottom:36px;font-size:clamp(40px,4.5vw,60px);position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .sobre h2{margin-bottom:36px;font-size:clamp(34px,3.8vw,48px);position:static;width:auto;height:auto;overflow:visible;clip:auto}
+  .sobre-closing{font-style:italic;color:var(--baltic);opacity:1}
   .sobre p{font-size:16px;line-height:1.75;margin-bottom:22px;color:var(--ink);opacity:.82}
   .sobre p strong{color:var(--baltic);font-weight:600}
   .sobre .ctas{margin-top:36px}
@@ -376,7 +517,7 @@
     top:0;right:0;
     width:80%;height:80%;
     border-radius:12px;
-    background:linear-gradient(135deg,#d4b3a0 0%,#8c645a 100%);
+    background:url('midia/Cintia.webp') center 20%/cover no-repeat;
     box-shadow:var(--shadow);
     overflow:hidden;
   }
@@ -385,7 +526,7 @@
     bottom:0;left:0;
     width:55%;height:45%;
     border-radius:12px;
-    background:linear-gradient(160deg,#b9a791,#6f4e46);
+    background:url('midia/Prédio.webp') center/cover no-repeat;
     box-shadow:var(--shadow);
     border:6px solid var(--cream);
     overflow:hidden;
@@ -532,6 +673,15 @@
   .beneficios-mosaic .bm1{top:0;left:0;width:68%;height:50%;background:url('midia/beneficios-1.webp') center/cover}
   .beneficios-mosaic .bm2{top:30%;right:0;width:45%;height:38%;background:url('midia/beneficios-2.webp') center/cover;border:6px solid var(--cream)}
   .beneficios-mosaic .bm3{bottom:0;left:10%;width:75%;height:40%;background:url('midia/beneficios-3.webp') center/cover}
+  .beneficios-closing{
+    margin-top:32px;
+    font-size:15px;
+    font-style:italic;
+    color:var(--baltic);
+    line-height:1.65;
+    max-width:480px;
+    opacity:1;
+  }
   @media(max-width:900px){
     .beneficios .container{grid-template-columns:1fr;gap:60px}
     .beneficios ul{grid-template-columns:1fr}
@@ -640,7 +790,7 @@
     top:0;right:0;
     width:78%;height:78%;
     border-radius:12px;
-    background:linear-gradient(135deg,#d4b3a0 0%,#8c645a 100%);
+    background:url('midia/signature1.webp') center/cover no-repeat;
     box-shadow:var(--shadow);
     overflow:hidden;
   }
@@ -649,7 +799,7 @@
     bottom:0;left:0;
     width:52%;height:48%;
     border-radius:12px;
-    background:linear-gradient(155deg,#b9a791,#6f4e46);
+    background:url('midia/signature2.webp') center/cover no-repeat;
     box-shadow:var(--shadow);
     border:8px solid var(--cream);
     transform:rotate(-2deg);
@@ -707,10 +857,10 @@
     position:relative;
     overflow:hidden;
   }
-  .member .avatar::after{
-    content:'';
-    position:absolute;inset:0;
-    background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.15),transparent 65%);
+  .member .avatar img{
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center top;
   }
   .member h4{
     font-family:'Cormorant Garamond',serif;
@@ -738,6 +888,15 @@
     .corpo .team{grid-template-columns:repeat(2,1fr);gap:40px 24px}
     .corpo{padding:80px 0}
     .member .avatar{width:140px;height:140px}
+  }
+  .corpo-microcopy{
+    margin-top:48px;
+    font-size:14px;
+    color:var(--muted);
+    font-style:italic;
+    max-width:560px;
+    margin-left:auto;
+    margin-right:auto;
   }
   @media(max-width:480px){
     .corpo .team{grid-template-columns:1fr;gap:48px}
@@ -823,7 +982,8 @@
     align-items:center;
   }
   .espaco h2{margin:22px 0 28px}
-  .espaco p{font-size:16px;line-height:1.75;margin-bottom:36px;max-width:500px}
+  .espaco p{font-size:16px;line-height:1.75;margin-bottom:24px;max-width:500px}
+  .espaco-microcopy{font-size:14px;font-style:italic;color:var(--muted);margin-bottom:32px !important}
   .address{
     background:var(--cream-2);
     border-left:3px solid var(--baltic);
@@ -1136,6 +1296,25 @@
 </head>
 <body>
 
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+  <div class="container">
+    <a href="#"><img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo"></a>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#">Início</a></li>
+      <li><a href="#sobre">Nossa essência</a></li>
+      <li><a href="#especialidades">Especialidades</a></li>
+      <li><a href="#como-cuidamos">Como cuidamos</a></li>
+      <li><a href="#equipe">Equipe</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+      <li><a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar</a></li>
+    </ul>
+  </div>
+</nav>
+
 <!-- ============ HERO (full-bg landing) ============ -->
 <section class="hero">
   <div class="container">
@@ -1143,39 +1322,54 @@
       <div class="hero-logo">
         <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo md">
       </div>
-      <span class="eyebrow">Fisioterapia de alta complexidade · desde 1998</span>
+      <span class="eyebrow">Fisioterapia de alta precisão · desde 1998</span>
       <h1>
-        Reabilitação de Alta Precisão
-        <span>para quem não pode parar.</span>
+        Fisioterapia de alta precisão em Brasília
+        <span>Seu corpo não nasceu para se adaptar à dor.</span>
       </h1>
-      <p class="subhead">Para quem exige do próprio corpo o máximo — e não aceita voltar a sentir a mesma dor de antes.</p>
-      <p class="support">Há mais de 25 anos cuidamos de executivos, empresários e profissionais de liderança que não têm espaço para tratamentos genéricos. Cada plano terapêutico aqui nasce da investigação da causa, não do alívio do sintoma.</p>
+      <p class="subhead">Na Fisions, cada tratamento começa com uma investigação profunda da causa do problema — para que você não precise conviver com alívio temporário, recaídas ou limitações que roubam sua qualidade de vida.</p>
+      <p class="support">Há mais de 25 anos, cuidamos de pessoas que valorizam precisão, escuta, tempo e um plano terapêutico realmente individualizado. Para quem deseja voltar a se mover, trabalhar, treinar e viver com segurança, liberdade e confiança.</p>
       <div class="ctas">
-        <a href="#agendar" class="btn">Agendar avaliação clínica</a>
-        <a href="#metodologia" class="btn-link">Conhecer a metodologia →</a>
+        <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar minha avaliação</a>
+        <a href="#como-cuidamos" class="btn-link">Entender como funciona →</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============ HERO SUPPORT POINTS ============ -->
+<div class="hero-support">
+  <div class="container">
+    <p class="hero-support-intro">Fisioterapia de alta precisão em um espaço de saúde e bem-estar pensado para quem não aceita conviver com dor, limitação ou tratamentos genéricos.</p>
+    <div class="support-points">
+      <div class="support-point"><i class="ph ph-check-circle"></i>Atendimento individualizado</div>
+      <div class="support-point"><i class="ph ph-check-circle"></i>Planos terapêuticos personalizados</div>
+      <div class="support-point"><i class="ph ph-check-circle"></i>Equipe especializada</div>
+      <div class="support-point"><i class="ph ph-check-circle"></i>Estrutura acolhedora e sofisticada</div>
+    </div>
+  </div>
+</div>
 
 <!-- ============ 04. TAGS BAR ============ -->
 <div class="tags-bar">
   <div class="tags-bar-track">
     <ul>
       <li>Dor crônica</li>
-      <li>Lesões esportivas</li>
-      <li>Pós-cirúrgico</li>
       <li>Coluna e postura</li>
+      <li>Pós-cirúrgico</li>
+      <li>Lesões esportivas</li>
       <li>Reabilitação neurológica</li>
-      <li>Performance executiva</li>
+      <li>Performance esportiva</li>
+      <li>Prevenção</li>
     </ul>
     <ul aria-hidden="true">
       <li>Dor crônica</li>
-      <li>Lesões esportivas</li>
-      <li>Pós-cirúrgico</li>
       <li>Coluna e postura</li>
+      <li>Pós-cirúrgico</li>
+      <li>Lesões esportivas</li>
       <li>Reabilitação neurológica</li>
-      <li>Performance executiva</li>
+      <li>Performance esportiva</li>
+      <li>Prevenção</li>
     </ul>
   </div>
 </div>
@@ -1190,51 +1384,79 @@
     </div>
     <div>
       <span class="eyebrow">Identificação</span>
-      <h2>Pequenos sinais de que seu corpo já está pedindo socorro</h2>
-      <p class="subhead">A rotina cobra silenciosamente. Quando o corpo avisa, ele quase nunca está só começando.</p>
+      <h2>Talvez o seu corpo já esteja pedindo ajuda há mais tempo do que parece</h2>
+      <p class="subhead">Nem sempre a dor começa de forma intensa. Às vezes, ela se apresenta em pequenos sinais que vão sendo ignorados até começarem a interferir na sua rotina, no seu rendimento e na sua liberdade.</p>
       <ul>
-        <li><span class="bullet">✓</span>Dores recorrentes no fim do expediente que "já viraram rotina".</li>
-        <li><span class="bullet">✓</span>Rigidez ao acordar, estalos ao levantar da cadeira, cansaço desproporcional.</li>
-        <li><span class="bullet">✓</span>Lesões antigas que voltam sempre que você tenta retomar a atividade física.</li>
-        <li><span class="bullet">✓</span>Recuperação pós-cirúrgica lenta ou sem evolução há semanas.</li>
-        <li><span class="bullet">✓</span>Postura travada por horas de reunião, viagem ou tela.</li>
-        <li><span class="bullet">✓</span>Limitação de movimento que começa a interferir no trabalho e no esporte.</li>
-        <li><span class="bullet">✓</span>Tratamentos anteriores que aliviaram, mas nunca resolveram a causa.</li>
+        <li><span class="bullet">✓</span>Dores que aparecem no fim do dia e já parecem "normais"</li>
+        <li><span class="bullet">✓</span>Rigidez ao acordar ou ao levantar depois de muito tempo sentado</li>
+        <li><span class="bullet">✓</span>Lesões antigas que sempre voltam</li>
+        <li><span class="bullet">✓</span>Desconfortos que pioram após treino, viagem ou longas horas de trabalho</li>
+        <li><span class="bullet">✓</span>Pós-operatório sem a evolução que você esperava</li>
+        <li><span class="bullet">✓</span>Movimentos simples que passaram a exigir esforço, cuidado ou adaptação</li>
+        <li><span class="bullet">✓</span>Tratamentos que aliviaram por um tempo, mas não resolveram de verdade</li>
       </ul>
-      <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+      <p class="sinais-closing">Seu corpo dá sinais antes de impor limites. Quanto antes a causa é identificada, mais preciso e eficiente tende a ser o tratamento.</p>
+      <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Quero entender meu caso</a>
+      <span class="microcopy">Comece pela causa, não apenas pelo sintoma.</span>
     </div>
   </div>
 </section>
 
-<!-- ============ 06. PROBLEMAS ============ -->
-<section class="problems" id="tratamentos">
+<!-- ============ 06. ESPECIALIDADES ============ -->
+<section class="problems" id="especialidades">
   <div class="container">
     <span class="eyebrow center">Especialidades</span>
-    <h2>Entre os principais quadros que tratamos</h2>
+    <h2>Nossas Especialidades</h2>
+    <p class="problems-intro">Na Fisions, cada área de cuidado é conduzida com critério técnico, escuta real e personalização. Nosso olhar não se limita ao diagnóstico. Ele considera o corpo, a rotina, a história e o que você precisa recuperar.</p>
     <div class="grid">
       <div class="problem-card">
-        <div class="icon">
-          <i class="ph ph-lightning"></i>
-        </div>
-        <h3>Dor Crônica e Lesões Persistentes</h3>
-        <p>Quando a dor deixa de ser aviso e vira parte do dia. Investigamos padrões musculoesqueléticos, compensações e gatilhos invisíveis para tratar o que a imagem nem sempre mostra.</p>
+        <div class="icon"><i class="ph ph-lightning"></i></div>
+        <h3>Dor crônica e queixas persistentes</h3>
+        <p>Para quem já não quer mais conviver com a sensação de que "vai ser assim mesmo". Investigamos compensações, sobrecargas e padrões que mantêm a dor ativa, para tratar além do sintoma.</p>
       </div>
       <div class="problem-card">
-        <div class="icon">
-          <i class="ph ph-first-aid"></i>
-        </div>
-        <h3>Pós-cirúrgico e Reabilitação Complexa</h3>
-        <p>Joelho, coluna, ombro, quadril. Protocolos construídos sob medida, respeitando o tempo biológico de cada tecido e acelerando o retorno funcional com segurança.</p>
+        <div class="icon"><i class="ph ph-first-aid"></i></div>
+        <h3>Pós-cirúrgico e reabilitação complexa</h3>
+        <p>Planos terapêuticos construídos com critério, respeitando o tempo do seu corpo e favorecendo uma recuperação mais segura, consistente e funcional.</p>
       </div>
       <div class="problem-card">
-        <div class="icon">
-          <i class="ph ph-heartbeat"></i>
-        </div>
-        <h3>Performance e Prevenção Executiva</h3>
-        <p>Para quem treina, viaja, lidera e não pode parar. Um plano que devolve amplitude, força e consciência corporal — antes que a lesão aconteça.</p>
+        <div class="icon"><i class="ph ph-spine"></i></div>
+        <h3>Coluna, postura e rotina de alta exigência</h3>
+        <p>Para quem passa horas sentado, viaja com frequência, lidera sob pressão ou percebe o corpo cada vez mais rígido, travado e cansado.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-person-simple-run"></i></div>
+        <h3>Lesões esportivas e retorno ao movimento</h3>
+        <p>Para quem deseja voltar a treinar com segurança, confiança e inteligência, sem medo de recaídas ou improvisos no processo de recuperação.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-brain"></i></div>
+        <h3>Reabilitação neurológica</h3>
+        <p>Cuidado técnico, individualizado e atento às particularidades de cada caso, com foco em funcionalidade, autonomia e qualidade de vida.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-barbell"></i></div>
+        <h3>Pilates</h3>
+        <p>Fortalecimento, controle do movimento, mobilidade, postura e consciência corporal com acompanhamento individualizado da equipe.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-smiley"></i></div>
+        <h3>Dor temporomandibular</h3>
+        <p>Tratamento para dores na mandíbula, estalos, travamentos, apertamento, bruxismo, dor facial e desconfortos associados.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-leaf"></i></div>
+        <h3>Acupuntura</h3>
+        <p>Um recurso terapêutico que contribui para analgesia, equilíbrio do organismo, redução de tensão e bem-estar global.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon"><i class="ph ph-shield-check"></i></div>
+        <h3>Fisioterapia preventiva</h3>
+        <p>Para quem deseja preservar mobilidade, autonomia, funcionalidade e qualidade de vida antes que a dor imponha limites.</p>
       </div>
     </div>
-    <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+    <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Falar com a equipe</a>
+    <span class="microcopy">Vamos direcionar você para a abordagem e o profissional mais adequado ao seu caso.</span>
   </div>
 </section>
 
@@ -1242,63 +1464,64 @@
 <section class="sobre" id="sobre">
   <div class="container">
     <div>
-      <span class="eyebrow">Desde 1998</span>
+      <span class="eyebrow">Nossa essência</span>
       <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo lg">
-      <h2>Fisions Reabilitação</h2>
-      <p>Nascida em Brasília em 1998, a Fisions foi fundada sobre um propósito muito claro: cuidar de pessoas, não tratar diagnósticos. Em mais de duas décadas, formamos um jeito próprio de fazer fisioterapia — baseado em tempo, escuta e estratégia clínica.</p>
-      <p>Enquanto o mercado encurtou sessões e padronizou protocolos, seguimos pelo caminho oposto. Cada paciente é recebido como único: uma história, um corpo, uma rotina. E cada plano terapêutico é construído a partir disso.</p>
-      <p>Três princípios sustentam tudo o que fazemos: <strong>excelência técnica, cuidado humano e atenção personalizada</strong>.</p>
+      <h2>Desde 1998, a Fisions escolheu um caminho diferente</h2>
+      <p>A Fisions nasceu em Brasília com um propósito muito claro: cuidar de pessoas, não apenas tratar diagnósticos.</p>
+      <p>Enquanto muitos atendimentos se tornaram rápidos, padronizados e impessoais, seguimos defendendo outro princípio: cada corpo tem uma história, cada rotina tem exigências próprias e cada tratamento precisa respeitar essa singularidade.</p>
+      <p>Somos um espaço pensado para quem deseja mais do que sessões isoladas. Deseja atenção, estratégia, acolhimento, sofisticação e um tratamento que faça sentido para a vida real.</p>
+      <p class="sobre-closing"><strong>Mais do que tratar uma dor, buscamos devolver conforto, autonomia e confiança ao seu corpo.</strong></p>
       <div class="ctas">
-        <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+        <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar minha avaliação</a>
       </div>
     </div>
     <div class="sobre-visual">
       <div class="sobre-img-main"></div>
       <div class="sobre-img-sub"></div>
-      <div class="sobre-signature">Fisions</div>
     </div>
   </div>
 </section>
 
-<!-- ============ 08. METODOLOGIA ============ -->
-<section class="metodologia" id="metodologia">
+<!-- ============ 08. COMO CUIDAMOS ============ -->
+<section class="metodologia" id="como-cuidamos">
   <div class="container">
     <div class="metodologia-img"></div>
     <div>
-      <span class="eyebrow">Metodologia Fisions</span>
-      <h2>Como funciona o seu tratamento na Fisions</h2>
-      <p class="subhead">Quatro pilares que separam um atendimento resolutivo de um protocolo genérico.</p>
+      <span class="eyebrow">Como cuidamos</span>
+      <h2>Como funciona o cuidado na Fisions</h2>
+      <p class="subhead">Um atendimento resolutivo não começa na maca. Começa na leitura certa do que o seu corpo está tentando dizer.</p>
       <div class="steps">
         <div class="step">
           <div class="step-num">01</div>
           <div>
             <h4>Investigação da causa</h4>
-            <p>Mais importante do que aliviar o sintoma é entender por que ele apareceu. Avaliação detalhada de biomecânica, padrões de movimento, histórico clínico e hábitos de vida.</p>
+            <p>O primeiro passo não é apenas localizar a dor. É entender por que ela surgiu, o que a mantém e como ela afeta a sua vida. Avaliamos movimento, histórico, hábitos, compensações e contexto de vida.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">02</div>
           <div>
             <h4>Plano terapêutico individualizado</h4>
-            <p>Nada de protocolo de prateleira. Cada conduta é desenhada para o seu corpo, a sua rotina e os seus objetivos — seja voltar a correr, voltar a dormir sem dor ou voltar a trabalhar sem limitação.</p>
+            <p>Seu plano de tratamento é estruturado de acordo com o seu corpo, sua rotina, seu histórico e seus objetivos.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">03</div>
           <div>
-            <h4>Tratamento estratégico e integrado</h4>
-            <p>Terapia manual, exercício terapêutico, recursos físicos e reeducação funcional trabalhando juntos. O que cada sessão precisa entregar, ela entrega.</p>
+            <h4>Condução clínica com direção</h4>
+            <p>Cada atendimento tem direção. Utilizamos os recursos necessários com intencionalidade clínica, para gerar evolução real e não apenas sensação passageira de melhora.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">04</div>
           <div>
             <h4>Autonomia e resultado duradouro</h4>
-            <p>Você sai de cada sessão entendendo o próprio corpo. O objetivo não é te deixar dependente da clínica — é te devolver liberdade de movimento para não precisar voltar pela mesma queixa.</p>
+            <p>Nosso foco não é criar dependência do tratamento, mas devolver ao seu corpo mais função, segurança e liberdade, para que você volte a viver com mais confiança.</p>
           </div>
         </div>
       </div>
-      <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+      <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar minha avaliação</a>
+      <span class="microcopy">Um tratamento melhor começa com uma leitura clínica melhor.</span>
     </div>
   </div>
 </section>
@@ -1308,17 +1531,19 @@
   <div class="container">
     <div>
       <span class="eyebrow">Por que tratar na Fisions</span>
-      <h2>Benefícios que você sente dentro e fora da clínica</h2>
+      <h2>O que você sente quando o tratamento é feito da forma certa</h2>
       <ul>
-        <li><span class="check"><i class="ph ph-check"></i></span>Redução da dor com causa identificada e tratada.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Retorno à rotina de trabalho sem desconforto acumulado.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Ganho de força, mobilidade e consciência corporal.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Recuperação pós-cirúrgica segura e previsível.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Prevenção de recidivas e lesões futuras.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Mais qualidade de sono e disposição no dia a dia.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Performance esportiva sustentável e sem travas.</li>
-        <li><span class="check"><i class="ph ph-check"></i></span>Autonomia para cuidar do próprio corpo a longo prazo.</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Menos dor e mais clareza sobre a sua causa</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Mais mobilidade, força e segurança nos movimentos</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Retorno progressivo à rotina sem sobrecarga desnecessária</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Recuperação mais organizada e previsível no pós-operatório</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Menor chance de recidivas e compensações futuras</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Mais qualidade de sono, disposição e bem-estar</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>Mais confiança para trabalhar, treinar e viver sem medo</li>
+        <li><span class="check"><i class="ph ph-check"></i></span>A sensação de que seu corpo voltou a responder como deveria</li>
       </ul>
+      <p class="beneficios-closing">Na Fisions, o resultado não é apenas clínico. Ele aparece no jeito como você volta a sentar, andar, dormir, treinar, viajar, produzir e viver.</p>
+      <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn" style="margin-top:32px">Quero agendar meu tratamento</a>
     </div>
     <div class="beneficios-mosaic">
       <div class="bm bm1"></div>
@@ -1328,15 +1553,17 @@
   </div>
 </section>
 
-<!-- ============ 10. ALÉM DA CONSULTA ============ -->
+<!-- ============ 10. O QUE FAZ A FISIONS SER DIFERENTE ============ -->
 <section class="alem">
   <div class="container-sm">
     <div class="ornament"></div>
     <span class="eyebrow">Diferencial</span>
-    <h2>Nosso cuidado começa antes e continua depois da sessão</h2>
-    <p>Na Fisions, um tratamento não termina quando você sai da clínica. Acompanhamos a sua evolução entre as sessões, ajustamos o plano conforme o seu corpo responde e orientamos o que você faz nas outras 23 horas do dia — porque é nelas que o resultado se constrói.</p>
-    <p>Você não fala com um robô, não depende de protocolo de WhatsApp automático e não recebe resposta padrão. Cada dúvida é respondida por quem cuida de você.</p>
-    <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+    <h2>O que faz a Fisions ser diferente</h2>
+    <p style="font-size:20px;font-weight:500;opacity:1;margin-bottom:12px">Nosso cuidado não termina quando a sessão acaba</p>
+    <p>Na Fisions, o acompanhamento vai além do tempo dentro da clínica. Acompanhamos a sua evolução, ajustamos a estratégia sempre que necessário e orientamos o que faz sentido para a sua rotina, porque o resultado também depende do que acontece fora daqui.</p>
+    <p>Você não encontra pressa, improviso ou atendimento em série. Encontra um espaço onde técnica e sensibilidade caminham juntas.</p>
+    <p style="font-style:italic;font-weight:500;opacity:1">É isso que transforma um atendimento em estratégia.</p>
+    <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Conhecer a experiência Fisions</a>
   </div>
 </section>
 
@@ -1345,17 +1572,13 @@
   <div class="container">
     <div>
       <span class="eyebrow">Programa Signature</span>
-      <h2>Protocolo Normalização de Sistemas</h2>
-      <p class="subhead">O tratamento mais completo da Fisions — desenvolvido para corpos complexos e rotinas exigentes.</p>
-      <p>Pensado para pacientes que já passaram por outras abordagens e não obtiveram resultado duradouro, o Protocolo Normalização de Sistemas integra avaliação funcional profunda, terapia manual avançada, reeducação de movimento e monitoramento contínuo do caso.</p>
-      <p>Não é uma sessão isolada: é um programa clínico estruturado, conduzido com o olhar de quem já tratou pacientes por mais de 25 anos, com rotinas como a sua — executivos, empresários, atletas amadores de alto rendimento e líderes que não podem parar.</p>
-      <ul class="entregas">
-        <li><i class="ph ph-check-circle"></i>Avaliação clínica ampliada com mapeamento biomecânico.</li>
-        <li><i class="ph ph-check-circle"></i>Plano personalizado com metas funcionais claras.</li>
-        <li><i class="ph ph-check-circle"></i>Acompanhamento entre sessões e reavaliações periódicas.</li>
-        <li><i class="ph ph-check-circle"></i>Relatório de evolução e estratégia de manutenção.</li>
-      </ul>
-      <a href="#agendar" class="btn">Falar sobre o protocolo</a>
+      <h2>Programa Signature Fisions</h2>
+      <p class="subhead">Para casos que exigem mais precisão, mais estratégia e um cuidado ainda mais completo.</p>
+      <p>Desenvolvido para pacientes com dor persistente, histórico de falhas em tratamentos anteriores, pós-operatórios mais delicados ou rotinas de alta exigência, o Programa Signature Fisions oferece uma condução clínica mais ampla, estratégica e próxima.</p>
+      <p>Aqui, o objetivo não é apenas tratar uma queixa isolada. É reorganizar o corpo com profundidade, critério e acompanhamento.</p>
+      <p style="font-style:italic;color:var(--baltic);font-weight:500">Indicado para quem busca um tratamento mais completo, sofisticado e individualizado.</p>
+      <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Programa%20Signature." target="_blank" class="btn">Falar sobre o Programa Signature</a>
+      <span class="microcopy">Nossa equipe orienta o melhor caminho para o seu caso.</span>
     </div>
     <div class="programa-visual">
       <div class="programa-badge">
@@ -1369,37 +1592,34 @@
 </section>
 
 <!-- ============ 12. CORPO CLÍNICO ============ -->
-<section class="corpo" id="corpo">
+<section class="corpo" id="equipe">
   <div class="container">
     <span class="eyebrow center">Quem cuida de você</span>
-    <h2>Um corpo clínico formado para tratar o que é complexo</h2>
-    <p class="subhead">Todos os profissionais da Fisions são selecionados pelo mesmo padrão: formação sólida, atualização constante e olhar humano.</p>
+    <h2>Um corpo clínico preparado para tratar com técnica e sensibilidade</h2>
+    <p class="subhead">Nossa equipe foi formada para sustentar o padrão de cuidado da Fisions: precisão clínica, escuta verdadeira, personalização e excelência no acompanhamento.</p>
     <div class="team">
       <div class="member">
-        <div class="avatar"></div>
+        <div class="avatar"><img src="midia/Cintia.webp" alt="Cíntia Severo" style="object-position:center 15%"></div>
         <h4>Cíntia Severo</h4>
         <div class="role">Responsável Técnica</div>
-        <div class="spec">Reabilitação ortopédica e pós-cirúrgica</div>
       </div>
       <div class="member">
-        <div class="avatar"></div>
+        <div class="avatar"><img src="midia/Carol.webp" alt="Carol Assumpção" style="object-position:center 38%;transform:scale(1.5)"></div>
         <h4>Carol Assumpção</h4>
         <div class="role">Fisioterapeuta</div>
-        <div class="spec">Coluna, postura e reeducação funcional</div>
       </div>
       <div class="member">
-        <div class="avatar"></div>
+        <div class="avatar"><img src="midia/Larissa.webp" alt="Larissa Queiroz" style="object-position:center 38%;transform:scale(1.3)"></div>
         <h4>Larissa Queiroz</h4>
         <div class="role">Fisioterapeuta</div>
-        <div class="spec">Lesões esportivas e performance</div>
       </div>
       <div class="member">
-        <div class="avatar"></div>
+        <div class="avatar"><img src="midia/Priscila.webp" alt="Priscila Farias" style="object-position:center 25%;transform:scale(1.25)"></div>
         <h4>Priscila Farias</h4>
         <div class="role">Fisioterapeuta</div>
-        <div class="spec">Reabilitação neurológica e dor crônica</div>
       </div>
     </div>
+    <p class="corpo-microcopy">Você será direcionado ao profissional mais adequado ao seu caso, à sua necessidade e ao tipo de acompanhamento que procura.</p>
   </div>
 </section>
 
@@ -1412,28 +1632,25 @@
       <div class="depo-card">
         <div class="g">G</div>
         <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="quote">"Cheguei com dor lombar crônica e a sensação de que ia conviver com isso para sempre. Em poucas semanas na Fisions, entendi que a causa era outra, completamente diferente do que me disseram antes. Hoje treino, viajo e trabalho sem limitação."</p>
+        <p class="quote">"Quero deixar aqui meu elogio e agradecimento à equipe da Fisions Reabilitação. Desde o primeiro atendimento, fui tratada com atenção, respeito e muito profissionalismo. As fisioterapeutas são extremamente competentes, cuidadosas e comprometidas com o bem-estar dos pacientes, em especial Cintia, que cuida da clínica e de seus pacientes com muita dedicação!"</p>
         <div class="author">
-          <strong>Marco A.</strong>
-          <span>Empresário · 52 anos</span>
+          <strong>Karen Miranda</strong>
         </div>
       </div>
       <div class="depo-card">
         <div class="g">G</div>
         <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="quote">"Passei por três outras clínicas depois da cirurgia de joelho. Só na Fisions tive um plano que respeitou o meu tempo e o meu corpo. Voltei a correr — sem medo."</p>
+        <p class="quote">"Está sendo a melhor experiência em fisioterapia e RPG que já tive. A clínica trabalha com excelência e percebo que as fisioterapeutas fazem o que amam. A Cíntia, que me atende, é uma profissional exemplar e me trata como um paciente único. Não quero mais deixar de fazer fisioterapia."</p>
         <div class="author">
-          <strong>Letícia P.</strong>
-          <span>Executiva · 41 anos</span>
+          <strong>Flávio Azevedo</strong>
         </div>
       </div>
       <div class="depo-card">
         <div class="g">G</div>
         <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="quote">"Indico para meus próprios pacientes. É o tipo de atendimento que eu gostaria de oferecer, e que eu mesmo procuro quando preciso."</p>
+        <p class="quote">"A equipe de profissionais da Fisions é destacadamente atenciosa e preocupada com a recuperação geral dos pacientes. Destaco a competência e dedicação da fisioterapeuta Priscila, que não mede esforços para ofertar um tratamento com o que há de mais moderno na área fisioterápica, não se limitando ao propósito do tratamento, mas indo em direção ao bem-estar de seus pacientes. Recomendo muito! Obrigada, Fisions."</p>
         <div class="author">
-          <strong>Dr. Henrique S.</strong>
-          <span>Cirurgião · 58 anos</span>
+          <strong>Flávia Ximenes</strong>
         </div>
       </div>
     </div>
@@ -1446,13 +1663,14 @@
   <div class="container">
     <div>
       <span class="eyebrow">Estrutura</span>
-      <h2>Um espaço pensado para quem cuida de si com seriedade</h2>
-      <p>Ambiente silencioso, equipado e preparado para atendimento individualizado. Cada sala foi desenhada para que você tenha privacidade, foco e o tempo necessário para evoluir no seu tratamento — sem a pressa que virou regra em outros lugares.</p>
+      <h2>Um espaço pensado para quem leva a própria saúde a sério</h2>
+      <p>A experiência na Fisions começa no ambiente. Privacidade, acolhimento, atenção individualizada e uma atmosfera mais serena para que o tratamento aconteça com qualidade, conforto e confiança.</p>
+      <p class="espaco-microcopy">Cada detalhe foi pensado para que você se sinta cuidado desde o primeiro contato.</p>
       <div class="address">
         <i class="ph ph-map-pin"></i>
         <div>
-          <strong>SGAS 915, Edifício Advance I, sala 143 – 1ºss</strong>
-          <span>Brasília/DF · Segunda a Sexta · 7h às 20h</span>
+          <strong>SGAS 915, Edifício Advance I, sala 143 – 1º subsolo, Brasília/DF</strong>
+          <span>Segunda a sexta-feira · 7h às 20h</span>
         </div>
       </div>
     </div>
@@ -1465,10 +1683,10 @@
 </section>
 
 <!-- ============ 15. FAQ ============ -->
-<section class="faq">
+<section class="faq" id="duvidas">
   <div class="container">
-    <span class="eyebrow center">Antes de agendar</span>
-    <h2>Esclarecendo as suas dúvidas</h2>
+    <span class="eyebrow center">Dúvidas frequentes</span>
+    <h2>Dúvidas frequentes</h2>
     <div class="faq-list">
       <details class="faq-item" open>
         <summary>
@@ -1476,50 +1694,90 @@
           <span class="question">A Fisions atende convênios?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Trabalhamos em regime particular, com emissão de recibo para reembolso junto ao seu plano de saúde. Assim conseguimos garantir o tempo e a qualidade que cada sessão exige.</div>
+        <div class="answer">Sim. Atendemos alguns convênios selecionados na agenda da nossa equipe. Na agenda da Dra. Cíntia Severo, os atendimentos são realizados apenas de forma particular.<br><br><em>Ao entrar em contato, nossa equipe confirma com você a melhor possibilidade de encaixe, conforme o seu caso e a forma de atendimento desejada.</em></div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="num">02</span>
-          <span class="question">Quanto tempo dura uma sessão?</span>
+          <span class="question">Como funciona quando quero agendar com a equipe?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Cada sessão tem entre 50 e 60 minutos — sem fila, sem sobreposição de pacientes e conduzida sempre pelo mesmo fisioterapeuta responsável pelo seu caso.</div>
+        <div class="answer">Nossa equipe avalia sua necessidade e direciona você para o profissional mais adequado, considerando disponibilidade, objetivo terapêutico e possibilidade de atendimento particular ou por convênio, quando aplicável.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="num">03</span>
-          <span class="question">Quantas sessões eu vou precisar?</span>
+          <span class="question">Vocês ajudam com reembolso?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Depende da sua avaliação inicial. Na primeira consulta definimos um plano com previsão realista de sessões, metas funcionais e marcos de reavaliação.</div>
+        <div class="answer">Sim. Nos atendimentos particulares, orientamos o paciente quanto à documentação necessária para solicitação de reembolso, quando o plano oferecer essa possibilidade.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="num">04</span>
-          <span class="question">Vocês atendem casos pós-cirúrgicos?</span>
+          <span class="question">Quanto tempo dura cada sessão?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Sim. Temos mais de duas décadas de experiência em reabilitação pós-cirúrgica ortopédica, com protocolos construídos em parceria com o seu médico.</div>
+        <div class="answer">As sessões têm duração média de 50 a 60 minutos, com atendimento individualizado e sem sobreposição de pacientes.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="num">05</span>
-          <span class="question">Preciso levar exames na primeira consulta?</span>
+          <span class="question">Quantas sessões vou precisar?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Traga o que tiver: laudos, imagens, relatórios médicos. Ajudam a compor o quadro, mas a avaliação clínica é sempre o ponto de partida principal.</div>
+        <div class="answer">Isso depende da sua avaliação inicial. A partir dela, definimos o plano terapêutico mais adequado para o seu caso.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="num">06</span>
+          <span class="question">Vocês atendem casos pós-cirúrgicos?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">Sim. A Fisions tem ampla experiência em reabilitação pós-cirúrgica e conduz cada caso com critério técnico, segurança e personalização.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="num">07</span>
+          <span class="question">Vocês atendem dor na mandíbula e DTM?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">Sim. Tratamos casos de dor temporomandibular, travamento, estalos, tensões faciais e desconfortos relacionados.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="num">08</span>
+          <span class="question">O Pilates é voltado apenas para quem quer se exercitar?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">Não. Na Fisions, o Pilates é utilizado como recurso terapêutico e preventivo, com foco em fortalecimento, postura, mobilidade, controle do movimento e bem-estar.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="num">09</span>
+          <span class="question">A acupuntura pode ser associada ao tratamento?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">Sim. Em muitos casos, ela é um recurso importante para analgesia, relaxamento muscular, equilíbrio e suporte ao processo terapêutico.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="num">10</span>
+          <span class="question">Preciso levar exames?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">Se tiver exames, laudos ou relatórios, eles podem contribuir. Mas a avaliação clínica continua sendo o ponto central para entendermos o seu caso.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="num">11</span>
           <span class="question">Como faço para agendar?</span>
           <span class="toggle">+</span>
         </summary>
-        <div class="answer">Pelo formulário abaixo, pelo WhatsApp ou por telefone. Nossa secretária retorna no mesmo dia útil.</div>
+        <div class="answer">Você pode falar com a nossa equipe pelo WhatsApp. O retorno é feito com agilidade, e nós orientamos o melhor caminho para o seu caso.</div>
       </details>
     </div>
-    <a href="#agendar" class="btn">Agendar avaliação clínica</a>
+    <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar avaliação clínica</a>
   </div>
 </section>
 
@@ -1527,9 +1785,11 @@
 <section class="agendar" id="agendar">
   <div class="container">
     <img src="midia/logo-fisions.webp" alt="Fisions Reabilitação" class="brand-logo md light">
-    <h2>Agende a sua avaliação clínica</h2>
-    <p class="agendar-sub">Cada agenda é limitada para que possamos dedicar o tempo necessário ao seu caso. Nossa equipe retorna no mesmo dia útil.</p>
-    <a href="https://wa.me/5561993999885" target="_blank" class="btn">Agendar avaliação clínica</a>
+    <h2>Agende sua avaliação clínica</h2>
+    <p class="agendar-sub">Seu corpo não precisa continuar se adaptando à dor. Com a condução certa, é possível recuperar movimento, segurança e qualidade de vida com muito mais clareza.</p>
+    <p class="agendar-sub" style="opacity:.72;font-size:14px;margin-bottom:16px">Na Fisions, cada agenda é limitada justamente para preservar o tempo e a atenção que cada paciente merece.</p>
+    <p class="agendar-sub" style="font-weight:600;opacity:.95;margin-bottom:44px">Dê o primeiro passo para entender a causa do seu problema e iniciar um tratamento à altura do que o seu corpo precisa.</p>
+    <a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="btn">Agendar pelo WhatsApp</a>
     <div class="agendar-divider"></div>
     <ul class="contact-list">
       <li>
@@ -1542,14 +1802,14 @@
       </li>
       <li>
         <i class="ph ph-map-pin"></i>
-        SGAS 915, Edifício Advance I, sala 143 – 1ºss
+        SGAS 915, Edifício Advance I, sala 143 – 1º subsolo
       </li>
     </ul>
     <div class="social">
       <a href="https://instagram.com/fisionsreabilitacao" target="_blank" aria-label="Instagram">
         <i class="ph ph-instagram-logo"></i>
       </a>
-      <a href="#" aria-label="WhatsApp">
+      <a href="https://wa.me/5561993999885" target="_blank" aria-label="WhatsApp">
         <i class="ph ph-whatsapp-logo"></i>
       </a>
     </div>
@@ -1578,6 +1838,11 @@
   </div>
 </footer>
 
+<!-- ============ FLOATING WHATSAPP ============ -->
+<a href="https://wa.me/5561993999885?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Fisions%20e%20gostaria%20de%20entender%20qual%20o%20melhor%20tipo%20de%20atendimento%20para%20o%20meu%20caso." target="_blank" class="whatsapp-float" aria-label="Fale conosco pelo WhatsApp">
+  <i class="ph ph-whatsapp-logo"></i>
+</a>
+
 <script>
   // FAQ: fecha os outros ao abrir um
   document.querySelectorAll('.faq-item').forEach(item=>{
@@ -1588,6 +1853,21 @@
         });
       }
     });
+  });
+
+  // Navbar: toggle mobile menu
+  document.querySelector('.nav-toggle').addEventListener('click',function(){
+    document.querySelector('.nav-links').classList.toggle('open');
+  });
+  // Close menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+  // Navbar shadow on scroll
+  window.addEventListener('scroll',()=>{
+    document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10);
   });
 </script>
 
